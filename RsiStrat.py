@@ -1,6 +1,3 @@
-# Start hyperopt with the following command:
-# freqtrade hyperopt --config config.json --hyperopt-loss SharpeHyperOptLoss --strategy RsiStrat -e 500 --spaces  buy sell --random-state 8711
-
 # --- Do not remove these libs ---
 import numpy as np  # noqa
 import pandas as pd  # noqa
@@ -46,7 +43,7 @@ class RsiStrat(IStrategy):
 # --- Used indicators of strategy code ----
     def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
 
-        dataframe['RSI'] = ta.RSI(dataframe, timeperiod=14)
+        dataframe['RSI'] = ta.RSI(dataframe)
 
         return dataframe
 
@@ -59,6 +56,7 @@ class RsiStrat(IStrategy):
            dataframe.loc[
                reduce(lambda x, y: x & y, conditions),
                'buy'] = 1
+
 
        return dataframe
 
